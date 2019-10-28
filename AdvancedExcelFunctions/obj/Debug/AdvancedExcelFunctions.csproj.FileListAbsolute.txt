@@ -1,0 +1,7 @@
+C:\Users\sudhe\source\repos\AdvancedExcelFunctions\AdvancedExcelFunctions\obj\Debug\AdvancedExcelFunctions.csprojAssemblyReference.cache
+C:\Users\sudhe\source\repos\AdvancedExcelFunctions\AdvancedExcelFunctions\obj\Debug\AdvancedExcelFunctions.csproj.CoreCompileInputs.cache
+C:\Users\sudhe\source\repos\AdvancedExcelFunctions\AdvancedExcelFunctions\bin\Debug\AdvancedExcelFunctions.dll.config
+C:\Users\sudhe\source\repos\AdvancedExcelFunctions\AdvancedExcelFunctions\bin\Debug\AdvancedExcelFunctions.dll
+C:\Users\sudhe\source\repos\AdvancedExcelFunctions\AdvancedExcelFunctions\bin\Debug\AdvancedExcelFunctions.pdb
+C:\Users\sudhe\source\repos\AdvancedExcelFunctions\AdvancedExcelFunctions\obj\Debug\AdvancedExcelFunctions.dll
+C:\Users\sudhe\source\repos\AdvancedExcelFunctions\AdvancedExcelFunctions\obj\Debug\AdvancedExcelFunctions.pdb

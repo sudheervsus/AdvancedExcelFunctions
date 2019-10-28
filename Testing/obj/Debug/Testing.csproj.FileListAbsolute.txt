@@ -1,0 +1,11 @@
+C:\Users\sudhe\source\repos\AdvancedExcelFunctions\Testing\bin\Debug\Testing.exe.config
+C:\Users\sudhe\source\repos\AdvancedExcelFunctions\Testing\bin\Debug\Testing.exe
+C:\Users\sudhe\source\repos\AdvancedExcelFunctions\Testing\bin\Debug\Testing.pdb
+C:\Users\sudhe\source\repos\AdvancedExcelFunctions\Testing\bin\Debug\AdvancedExcelFunctions.dll
+C:\Users\sudhe\source\repos\AdvancedExcelFunctions\Testing\bin\Debug\AdvancedExcelFunctions.pdb
+C:\Users\sudhe\source\repos\AdvancedExcelFunctions\Testing\bin\Debug\AdvancedExcelFunctions.dll.config
+C:\Users\sudhe\source\repos\AdvancedExcelFunctions\Testing\obj\Debug\Testing.csprojAssemblyReference.cache
+C:\Users\sudhe\source\repos\AdvancedExcelFunctions\Testing\obj\Debug\Testing.csproj.CoreCompileInputs.cache
+C:\Users\sudhe\source\repos\AdvancedExcelFunctions\Testing\obj\Debug\Testing.csproj.CopyComplete
+C:\Users\sudhe\source\repos\AdvancedExcelFunctions\Testing\obj\Debug\Testing.exe
+C:\Users\sudhe\source\repos\AdvancedExcelFunctions\Testing\obj\Debug\Testing.pdb
