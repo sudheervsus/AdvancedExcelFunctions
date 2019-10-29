@@ -60,6 +60,162 @@ namespace AdvancedExcelFunctions
             return result;
         }
 
+        public string GoOneCellRight(string FilePath, string SheetName)
+        {
+            string result = "";
+            try
+            {
+                result = OpenExcel(FilePath, SheetName);
+                if (result == "")
+                {
+                    Excel.Range range = (Excel.Range)excelApp.ActiveCell;
+                    range.Offset[0, 1].Select();
+                    result = "";
+                }
+            }
+            catch (Exception e)
+            {
+                result = "Exception caught - " + e.Message;
+            }
+
+            return result;
+        }
+
+        public string GoOneCellLeft(string FilePath, string SheetName)
+        {
+            string result = "";
+            try
+            {
+                result = OpenExcel(FilePath, SheetName);
+                if (result == "")
+                {
+                    Excel.Range range = (Excel.Range)excelApp.ActiveCell;
+                    if(range.Column !=1)
+                    {
+                        range.Offset[0, -1].Select();
+                    }
+                    result = "";
+                }
+            }
+            catch (Exception e)
+            {
+                result = "Exception caught - " + e.Message;
+            }
+
+            return result;
+        }
+
+        public string GoOneCellUp(string FilePath, string SheetName)
+        {
+            string result = "";
+            try
+            {
+                result = OpenExcel(FilePath, SheetName);
+                if (result == "")
+                {
+                    Excel.Range range = (Excel.Range)excelApp.ActiveCell;
+                    if (range.Row != 1)
+                    {
+                        range.Offset[-1, 0].Select();
+                    }
+                    result = "";
+                }
+            }
+            catch (Exception e)
+            {
+                result = "Exception caught - " + e.Message;
+            }
+
+            return result;
+        }
+
+        public string GoOneCellDown(string FilePath, string SheetName)
+        {
+            string result = "";
+            try
+            {
+                result = OpenExcel(FilePath, SheetName);
+                if (result == "")
+                {
+                    Excel.Range range = (Excel.Range)excelApp.ActiveCell;
+                    if (range.Row != 1)
+                    {
+                        range.Offset[1, 0].Select();
+                    }
+                    result = "";
+                }
+            }
+            catch (Exception e)
+            {
+                result = "Exception caught - " + e.Message;
+            }
+
+            return result;
+        }
+
+        public string GoToLastRow(string FilePath, string SheetName)
+        {
+            string result = "";
+            try
+            {
+                result = OpenExcel(FilePath, SheetName);
+                if (result == "")
+                {
+                    Excel.Range range = (Excel.Range)excelApp.ActiveCell;
+                    range.SpecialCells(XlCellType.xlCellTypeLastCell).Select();
+                    result = "";
+                }
+            }
+            catch (Exception e)
+            {
+                result = "Exception caught - " + e.Message;
+            }
+
+            return result;
+        }
+
+        public string GoToLastColumn(string FilePath, string SheetName)
+        {
+            string result = "";
+            try
+            {
+                result = OpenExcel(FilePath, SheetName);
+                if (result == "")
+                {
+                    Excel.Range range = (Excel.Range)excelApp.ActiveCell;
+                    int currentrow = range.Row;
+                    Ws.Cells[currentrow, Ws.Columns.Count].End(XlDirection.xlToLeft).Select();
+                    result = "";
+                }
+            }
+            catch (Exception e)
+            {
+                result = "Exception caught - " + e.Message;
+            }
+
+            return result;
+        }
+
+        public string GetActiveCellAddress(string FilePath, string SheetName)
+        {
+            string result = "";
+            try
+            {
+                result = OpenExcel(FilePath, SheetName);
+                if (result == "")
+                {
+                    Excel.Range range = (Excel.Range)excelApp.ActiveCell;
+                    result = range.Address[false, false, XlReferenceStyle.xlA1];
+                }
+            }
+            catch (Exception e)
+            {
+                result = "Exception caught - " + e.Message;
+            }
+
+            return result;
+        }
+
         public string GetLastUsedRow(string FilePath, string ColumnName, string SheetName = "")
         {
             string result = "";
@@ -168,11 +324,20 @@ namespace AdvancedExcelFunctions
             return result;
         }
 
-        public string AutoFilter(string FilePath, string SheetName, int Field, string FilterRange, string Criteria1, string Criteria2, string Operator)
+        public string AutoFilter(string FilePath, string SheetName, int Field, string FilterRange, string Criteria1, string Criteria2 = "", string Operator = "")
         {
             string result = "";
             try
             {
+                object criteria2;
+                if (Criteria2 == "")
+                {
+                    criteria2 = Type.Missing;
+                }
+                else
+                {
+                    criteria2 = Criteria2;
+                }
                 XlAutoFilterOperator filterOperator;
                 switch (Operator.ToUpper())
                 {
@@ -195,7 +360,7 @@ namespace AdvancedExcelFunctions
                 result = OpenExcel(FilePath, SheetName);
                 if (result == "")
                 {
-                    Ws.Range[FilterRange].AutoFilter(Field, Criteria1, filterOperator, Criteria2);
+                    Ws.Range[FilterRange].AutoFilter(Field, Criteria1, filterOperator, criteria2);
                 }
 
             }
@@ -597,47 +762,18 @@ namespace AdvancedExcelFunctions
             return result;
         }
 
-        public string InsertColumnOrRow(string FilePath, string Range, string RowOrColumn, string SheetName = "")
+        public string InsertColumn(string FilePath, string Range, string SheetName = "")
         {
             string result = "";
 
             try
             {
-                XlInsertShiftDirection shiftDirection;
-                switch (RowOrColumn.ToUpper())
-                {
-                    case "ROW":
-                        shiftDirection = XlInsertShiftDirection.xlShiftDown;
-                        break;
-                    case "Column":
-                        shiftDirection = XlInsertShiftDirection.xlShiftToRight;
-                        break;
-                    case "R":
-                        shiftDirection = XlInsertShiftDirection.xlShiftDown;
-                        break;
-                    case "C":
-                        shiftDirection = XlInsertShiftDirection.xlShiftToRight;
-                        break;
-                    default:
-                        shiftDirection = XlInsertShiftDirection.xlShiftDown;
-                        RowOrColumn = "";
-                        break;
-                }
                 result = OpenExcel(FilePath, SheetName);
                 if (result == "")
                 {
-                    if (RowOrColumn != "")
-                    {
-                        Ws.Range[Range].Insert(shiftDirection, XlInsertFormatOrigin.xlFormatFromLeftOrAbove);
-                        result = "";
-                    }
-                    else
-                    {
-                        result = "Exception caught - Row(R) or Column(C) should be mentioned";
-                    }
-
+                    Ws.Range[Range].EntireColumn.Insert(XlInsertShiftDirection.xlShiftToRight, XlInsertFormatOrigin.xlFormatFromLeftOrAbove);
+                    result = "";
                 }
-
             }
             catch (Exception e)
             {
@@ -647,7 +783,7 @@ namespace AdvancedExcelFunctions
             return result;
         }
 
-        public string HideColumn(string FilePath, string SheetName, string ColumnName)
+        public string HideColumn(string FilePath, string SheetName, string ColumnRange)
         {
             string result = "";
 
@@ -656,7 +792,7 @@ namespace AdvancedExcelFunctions
                 result = OpenExcel(FilePath, SheetName);
                 if (result == "")
                 {
-                    Ws.Columns[ColumnName].Hidden = true;
+                    Ws.Range[ColumnRange].EntireColumn.Hidden = true;
                     result = "";
                 }
 
@@ -669,7 +805,7 @@ namespace AdvancedExcelFunctions
             return result;
         }
 
-        public string UnhideColumn(string FilePath, string SheetName, string ColumnName)
+        public string UnhideColumn(string FilePath, string SheetName, string ColumnRange)
         {
             string result = "";
 
@@ -678,7 +814,7 @@ namespace AdvancedExcelFunctions
                 result = OpenExcel(FilePath, SheetName);
                 if (result == "")
                 {
-                    Ws.Columns[ColumnName].Hidden = false;
+                    Ws.Columns[ColumnRange].EntireColumn.Hidden = false;
                     result = "";
                 }
 
@@ -691,57 +827,7 @@ namespace AdvancedExcelFunctions
             return result;
         }
 
-        public string DeleteColumnOrRow(string FilePath, string Range, string RowOrColumn, string SheetName = "")
-        {
-            string result = "";
-
-            try
-            {
-                XlInsertShiftDirection shiftDirection;
-                switch (RowOrColumn.ToUpper())
-                {
-                    case "ROW":
-                        shiftDirection = XlInsertShiftDirection.xlShiftDown;
-                        break;
-                    case "Column":
-                        shiftDirection = XlInsertShiftDirection.xlShiftToRight;
-                        break;
-                    case "R":
-                        shiftDirection = XlInsertShiftDirection.xlShiftDown;
-                        break;
-                    case "C":
-                        shiftDirection = XlInsertShiftDirection.xlShiftToRight;
-                        break;
-                    default:
-                        shiftDirection = XlInsertShiftDirection.xlShiftDown;
-                        RowOrColumn = "";
-                        break;
-                }
-                result = OpenExcel(FilePath, SheetName);
-                if (result == "")
-                {
-                    if (RowOrColumn != "")
-                    {
-                        Ws.Range[Range].Delete(shiftDirection);
-                        result = "";
-                    }
-                    else
-                    {
-                        result = "Exception caught - Row(R) or Column(C) should be mentioned";
-                    }
-
-                }
-
-            }
-            catch (Exception e)
-            {
-                return "Exception caught - " + e.Message;
-            }
-
-            return result;
-        }
-
-        public string HideRow(string FilePath, string SheetName, int RowNumber)
+        public string DeleteColumns(string FilePath, string Range, string SheetName = "")
         {
             string result = "";
 
@@ -750,7 +836,7 @@ namespace AdvancedExcelFunctions
                 result = OpenExcel(FilePath, SheetName);
                 if (result == "")
                 {
-                    Ws.Rows[RowNumber].Hidden = true;
+                    Ws.Range[Range].EntireColumn.Delete(XlDeleteShiftDirection.xlShiftToLeft);
                     result = "";
                 }
 
@@ -763,7 +849,7 @@ namespace AdvancedExcelFunctions
             return result;
         }
 
-        public string UnhideRow(string FilePath, string SheetName, int RowNumber)
+        public string InsertRow(string FilePath, string Range, string SheetName = "")
         {
             string result = "";
 
@@ -772,7 +858,72 @@ namespace AdvancedExcelFunctions
                 result = OpenExcel(FilePath, SheetName);
                 if (result == "")
                 {
-                    Ws.Rows[RowNumber].Hidden = false;
+                    Ws.Range[Range].EntireRow.Insert(XlInsertShiftDirection.xlShiftDown, XlInsertFormatOrigin.xlFormatFromLeftOrAbove);
+                    result = "";
+                }
+            }
+            catch (Exception e)
+            {
+                return "Exception caught - " + e.Message;
+            }
+
+            return result;
+        }
+
+        public string HideRow(string FilePath, string SheetName, int RowRange)
+        {
+            string result = "";
+
+            try
+            {
+                result = OpenExcel(FilePath, SheetName);
+                if (result == "")
+                {
+                    Ws.Rows[RowRange].EntireRow.Hidden = true;
+                    result = "";
+                }
+
+            }
+            catch (Exception e)
+            {
+                return "Exception caught - " + e.Message;
+            }
+
+            return result;
+        }
+
+        public string UnhideRow(string FilePath, string SheetName, int RowRange)
+        {
+            string result = "";
+
+            try
+            {
+                result = OpenExcel(FilePath, SheetName);
+                if (result == "")
+                {
+                    Ws.Rows[RowRange].EntireRow.Hidden = false;
+                    result = "";
+                }
+
+            }
+            catch (Exception e)
+            {
+                return "Exception caught - " + e.Message;
+            }
+
+            return result;
+        }
+
+        public string DeleteRows(string FilePath, string Range, string SheetName = "")
+        {
+            string result = "";
+
+            try
+            {
+                result = OpenExcel(FilePath, SheetName);
+                if (result == "")
+                {
+                    Ws.Range[Range].EntireRow.Delete(XlDeleteShiftDirection.xlShiftUp);
                     result = "";
                 }
 
